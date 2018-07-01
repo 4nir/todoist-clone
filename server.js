@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+const items = require('./routes/api/items');
+
 //initialize express into a variable called app
 const app = express();
 
@@ -17,6 +19,11 @@ mongoose
 .connect(db)
 .then((() => console.log("MongoDB Connected!")))
 .catch(err => console.log("err")); 
+
+//Use Routes
+app.use('/api/items', items);
+//i.e. anyting that uses /api/items, should refer to
+//items, as in the file defined above
 
 //we need to run our server
 const port = process.env.PORT || 5000;
